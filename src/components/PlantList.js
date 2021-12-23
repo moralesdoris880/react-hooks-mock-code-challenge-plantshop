@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from "react";
 import PlantCard from "./PlantCard";
 
-function PlantList() {
+function PlantList({text}) {
   const[plants,setPlants] = useState([]);
 
   useEffect(()=>{
@@ -10,9 +10,11 @@ function PlantList() {
     .then((data)=> setPlants(data));
   },[]);
 
+  const plantsToDisplay = plants.filter((plant)=> text === plant.name || text === "")
+
   return (
     <ul className="cards">
-      {plants.map((plant)=><PlantCard key={plant.id} plant={plant}/>)}
+      {plantsToDisplay.map((plant)=><PlantCard key={plant.id} plant={plant}/>)}
     </ul>
   );
 }
